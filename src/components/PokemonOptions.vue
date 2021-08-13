@@ -48,6 +48,7 @@ li:hover {
 }
 
 .options-container {
+  padding-top: 15px;
   display: flex;
   justify-content: center;
 }

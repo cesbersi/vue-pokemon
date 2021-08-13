@@ -10,7 +10,8 @@
     <pokemon-picture
       :pokemon-id="pokemon.id"
       :show-pokemon="showPokemon"
-    ></pokemon-picture>
+    ></pokemon-picture>  
+
     <pokemon-options
       v-show="!showAnswer"
       :pokemons="pokemonArr"
@@ -19,22 +20,31 @@
 
     <template v-if="showAnswer">
       <h2 class="fade-in" style="text-align: center">{{ message }}</h2>
-      <v-btn @click="newGame" color="secondary" elevation="2" x-large x-small
+      <v-btn @click="newGame" color="primary" elevation="24" x-large x-small
         >Nuevo Juego</v-btn
       >
     </template>
   </div>
+    <puntaje
+      :correctos="correctos"
+      :inCorrectos="inCorrectos"
+    >
+
+
+    </puntaje>
 </template>
 
 <script>
 import PokemonOptions from "@/components/PokemonOptions";
 import PokemonPicture from "@/components/PokemonPicture";
+import Puntaje from "@/components/Puntaje";
 import getPokemonsOptions from "@/helpers/getPokemonOptions";
 
 export default {
   components: {
     PokemonOptions,
     PokemonPicture,
+    Puntaje
   },
   data() {
     return {
@@ -43,6 +53,8 @@ export default {
       showPokemon: false,
       showAnswer: false,
       message: "",
+      correctos: 0,
+      inCorrectos: 0
     };
   },
   methods: {
@@ -61,8 +73,10 @@ export default {
       this.showPokemon = true;
       if (this.pokemon.id === pokemonId) {
         this.message = "Que bien lo has logrado";
+        this.correctos ++;
       } else {
         this.message = `Que mal, el pokemon correcto es ${this.pokemon.name}`;
+        this.inCorrectos++;
       }
     },
     newGame() {
